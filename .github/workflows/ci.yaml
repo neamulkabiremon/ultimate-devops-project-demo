@@ -92,3 +92,4 @@ jobs:
         git add k8s/product-catalog-deployment.yaml
         git commit -m "[CI]: Update deployment.yaml"
         git push
+        

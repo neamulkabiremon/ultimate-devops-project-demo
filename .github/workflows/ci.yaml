@@ -89,6 +89,6 @@ jobs:
       run: |
         git config --global user.email "neamulkabiremon@gmail.com"
         git config --global user.name "neamulkabiremon"
-        git add k8s/product-catalog-deployment.yaml
+        git add kubernetes/productcatalog/deploy.yaml
         git commit -m "[CI]: Update deployment.yaml"
         git push

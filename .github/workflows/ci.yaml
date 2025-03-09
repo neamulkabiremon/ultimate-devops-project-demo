@@ -83,7 +83,7 @@ jobs:
         token: ${{ secrets.TOKEN }}
     - name: Update tag in kubernetes deployment manifest
       run: |
-        sed -i 's/image: .*/image: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{ github.run_id }}/' k8s/product-catalog/deployment.yaml
+        sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{github.run_id}}|" kubernetes/productcatalog/deploy.yaml
         cat k8s/product-catalog-deployment.yaml
     - name: Commit and push changes
       run: |
@@ -92,4 +92,3 @@ jobs:
         git add k8s/product-catalog-deployment.yaml
         git commit -m "[CI]: Update deployment.yaml"
         git push
-        

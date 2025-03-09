@@ -81,6 +81,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.TOKEN }}
+        ref: main
+    - name: Switch to main branch
+      run: git checkout main
+
     - name: Update tag in kubernetes deployment manifest
       run: |
         sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{github.run_id}}|" kubernetes/productcatalog/deploy.yaml
@@ -91,4 +95,4 @@ jobs:
         git config --global user.name "neamulkabiremon"
         git add kubernetes/productcatalog/deploy.yaml
         git commit -m "[CI]: Update deployment.yaml"
-        git push
+        git push origin main

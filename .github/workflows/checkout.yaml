@@ -72,7 +72,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/checkout
+          context: .
           file: ./src/checkout/Dockerfile
 
           push: true

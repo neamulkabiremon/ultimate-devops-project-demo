@@ -89,6 +89,6 @@ jobs:
        
       - name: Update Kubernetes Deployment
         run: |
-          sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/checkout:${{ github.run_id }}|" k8s/checkout/deploy.yaml
+          sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/checkout:${{ github.sha }}|" kubernetes/checkout/deploy.yaml
           cat kubernetes/checkout/deploy.yaml
 

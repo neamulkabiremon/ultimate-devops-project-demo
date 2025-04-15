@@ -31,7 +31,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: frontend
-          image: 'ghcr.io/open-telemetry/demo:1.12.0-frontend'
+          image: neamulkabiremon/frontend:db50ed904d477b9c723af619a4ac35c6e9c57c48
           imagePullPolicy: IfNotPresent
           ports:
             

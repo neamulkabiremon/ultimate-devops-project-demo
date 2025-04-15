@@ -79,7 +79,7 @@ jobs:
           file: ./src/frontend/Dockerfile
 
           push: true
-          tags: neamulkabiremon/checkout:${{ github.sha }}
+          tags: neamulkabiremon/frontend:${{ github.sha }}
   
   update-k8s-deployment:
     runs-on: ubuntu-latest

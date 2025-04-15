@@ -33,7 +33,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd src/frontend
-          npm test -- --watchAll=false
+          npm test -- --coverage --watchAll=false
 
   code-quality:
     runs-on: ubuntu-latest

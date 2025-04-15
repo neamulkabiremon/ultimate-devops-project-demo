@@ -31,7 +31,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: adservice
-          image: 'ghcr.io/open-telemetry/demo:1.12.0-adservice'
+          image: neamulkabiremon/checkout:242ec10256d114f6cc301386da5083a52c5c4d23
           imagePullPolicy: IfNotPresent
           ports:
             

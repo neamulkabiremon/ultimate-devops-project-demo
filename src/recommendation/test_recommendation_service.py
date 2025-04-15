@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import MagicMock
 from demo_pb2 import ListRecommendationsRequest
 
-# Fix Python path so we can import the server module
+# Fix path to import the service module
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 from recommendation_server import RecommendationService
@@ -15,7 +15,16 @@ class TestRecommendationService(unittest.TestCase):
         # Arrange
         service = RecommendationService()
 
-        # Inject mock product_catalog_stub into the service's global scope
+        # Inject mocks into recommendation_server globals
+        import recommendation_server
+        recommendation_server.product_catalog_stub = MagicMock()
+        recommendation_server.tracer = MagicMock()
+
+        # Mock the tracer context manager
+        mock_span = MagicMock()
+        recommendation_server.tracer.start_as_current_span.return_value.__enter__.return_value = mock_span
+
+        # Fake products from product catalog
         fake_products = [
             MagicMock(id="prod1"),
             MagicMock(id="prod2"),
@@ -24,8 +33,6 @@ class TestRecommendationService(unittest.TestCase):
             MagicMock(id="prod5"),
             MagicMock(id="prod6"),
         ]
-        import recommendation_server
-        recommendation_server.product_catalog_stub = MagicMock()
         recommendation_server.product_catalog_stub.ListProducts.return_value.products = fake_products
 
         request = ListRecommendationsRequest(product_ids=["prod1", "prod2"])

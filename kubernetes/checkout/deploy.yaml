@@ -31,7 +31,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: checkoutservice
-          image: 'ghcr.io/open-telemetry/demo:1.12.0-checkoutservice'
+          image: neamulkabiremon/checkout:426983789f9c7ae0ee8890176076d9c7f079473d
           imagePullPolicy: IfNotPresent
           ports:
             
@@ -81,6 +81,6 @@ spec:
           - -c
           - until nc -z -v -w30 opentelemetry-demo-kafka 9092; do echo waiting
             for kafka; sleep 2; done;
-          image: busybox:latest
+          image: neamulkabiremon/checkout:426983789f9c7ae0ee8890176076d9c7f079473d
           name: wait-for-kafka
       volumes:

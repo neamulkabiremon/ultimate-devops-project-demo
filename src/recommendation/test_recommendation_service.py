@@ -1,55 +1,57 @@
-import sys
-import os
 import unittest
-from unittest.mock import MagicMock
-from demo_pb2 import ListRecommendationsRequest
-
-# Ensure import works when run as script
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-
+from unittest.mock import MagicMock, patch
 from recommendation_server import RecommendationService
+from demo_pb2 import ListRecommendationsRequest, ListRecommendationsResponse
 
 
-class TestRecommendationService(unittest.TestCase):
-    def test_list_recommendations(self):
-        # Import the module after fixing path
+class RecommendationServiceTest(unittest.TestCase):
+
+    def setUp(self):
+        # Inject logger and rec_svc_metrics manually since they aren't globally exposed
         import recommendation_server
-
-        # Mock the global dependencies
         recommendation_server.logger = MagicMock()
-        recommendation_server.tracer = MagicMock()
-        recommendation_server.product_catalog_stub = MagicMock()
         recommendation_server.rec_svc_metrics = {
             "app_recommendations_counter": MagicMock()
         }
 
-        # Mock tracer context
-        mock_span = MagicMock()
-        recommendation_server.tracer.start_as_current_span.return_value.__enter__.return_value = mock_span
+    @patch("recommendation_server.get_product_list")
+    def test_excludes_input_products_and_limits_count(self, mock_get_products):
+        mock_get_products.return_value = ["prod3", "prod4", "prod5"]
 
-        # Provide fake product data
-        fake_products = [
-            MagicMock(id="prod1"),
-            MagicMock(id="prod2"),
-            MagicMock(id="prod3"),
-            MagicMock(id="prod4"),
-            MagicMock(id="prod5"),
-            MagicMock(id="prod6"),
-        ]
-        recommendation_server.product_catalog_stub.ListProducts.return_value.products = fake_products
-
-        # Setup request
         service = RecommendationService()
         request = ListRecommendationsRequest(product_ids=["prod1", "prod2"])
+        context = MagicMock()
 
-        # Act
-        response = service.ListRecommendations(request, MagicMock())
+        response: ListRecommendationsResponse = service.ListRecommendations(request, context)
 
-        # Assert
-        self.assertTrue(len(response.product_ids) > 0)
+        self.assertIsInstance(response, ListRecommendationsResponse)
+        self.assertEqual(response.product_ids, ["prod3", "prod4", "prod5"])
         self.assertNotIn("prod1", response.product_ids)
         self.assertNotIn("prod2", response.product_ids)
-        self.assertLessEqual(len(response.product_ids), 5)
+
+    @patch("recommendation_server.get_product_list")
+    def test_handles_empty_input(self, mock_get_products):
+        mock_get_products.return_value = ["prod1", "prod2"]
+
+        service = RecommendationService()
+        request = ListRecommendationsRequest(product_ids=[])
+        context = MagicMock()
+
+        response = service.ListRecommendations(request, context)
+
+        self.assertEqual(response.product_ids, ["prod1", "prod2"])
+
+    @patch("recommendation_server.get_product_list")
+    def test_handles_empty_catalog(self, mock_get_products):
+        mock_get_products.return_value = []
+
+        service = RecommendationService()
+        request = ListRecommendationsRequest(product_ids=["prod1"])
+        context = MagicMock()
+
+        response = service.ListRecommendations(request, context)
+
+        self.assertEqual(response.product_ids, [])
 
 
 if __name__ == '__main__':

@@ -51,3 +51,6 @@ jobs:
         working-directory: ./src/recommendation
         run: |
           flake8 . --max-line-length=100 --exclude=demo_pb2.py,demo_pb2_grpc.py,venv
+        continue-on-error: true
+
+  

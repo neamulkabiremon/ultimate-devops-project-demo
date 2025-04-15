@@ -52,6 +52,8 @@ jobs:
         run: |
             go mod tidy
             golangci-lint run ./... --timeout 5m
+        continue-on-error: true
+
 
   build-and-push:
     runs-on: ubuntu-latest

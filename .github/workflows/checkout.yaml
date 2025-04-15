@@ -44,7 +44,7 @@ jobs:
 
       - name: Run golangci-lint
         run: |
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1
           golangci-lint run src/checkout/...
 
   docker:
@@ -66,8 +66,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/checkout
-          file: ./src/checkout/Dockerfile
+          context: src/checkout
+          file: src/checkout/Dockerfile
+
           push: true
           tags: neamulkabiremon/checkout:${{ github.sha }}
   

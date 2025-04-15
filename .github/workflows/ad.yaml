@@ -33,4 +33,21 @@ jobs:
         working-directory: ./src/ad
         run: ./gradlew test
 
-     
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Give Gradle permission to execute
+        run: chmod +x ./src/ad/gradlew
+
+      - name: Run Google Java Format Check
+        working-directory: ./src/ad
+        run: ./gradlew verifyGoogleJavaFormat

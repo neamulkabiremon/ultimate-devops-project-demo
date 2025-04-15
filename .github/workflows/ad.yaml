@@ -72,7 +72,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./src/ad
           file: ./src/ad/Dockerfile
 
           push: true

@@ -12,3 +12,6 @@ psutil==5.9.6 # Importing this will also import opentelemetry-instrumentation-sy
 # Testing
 pytest==8.2.1
 unittest-xml-reporting==3.0.4
+flake8==5.0.4
+pylint==3.1.0
+black==24.3.0

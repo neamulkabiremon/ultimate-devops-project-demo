@@ -8,7 +8,9 @@
     "start": "node --require ./Instrumentation.js server.js",
     "lint": "next lint",
     "cy:open": "cypress open",
-    "grpc:generate": "mkdir -p ./protos && protoc -I ./pb  --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=esModuleInterop=true --ts_proto_out=./protos --ts_proto_opt=outputServices=grpc-js demo.proto"
+    "grpc:generate": "mkdir -p ./protos && protoc -I ./pb  --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=esModuleInterop=true --ts_proto_out=./protos --ts_proto_opt=outputServices=grpc-js demo.proto",
+    "test": "jest",
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@grpc/grpc-js": "1.12.5",
@@ -48,6 +50,7 @@
     "uuid": "11.0.5"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "22.10.7",
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
@@ -60,7 +63,9 @@
     "eslint-config-next": "15.1.5",
     "eslint-plugin-react": "7.37.4",
     "eslint-plugin-react-hooks": "5.1.0",
+    "jest": "^29.7.0",
     "openapi-typescript": "7.5.2",
+    "ts-jest": "^29.3.2",
     "typescript": "5.7.3"
   }
 }

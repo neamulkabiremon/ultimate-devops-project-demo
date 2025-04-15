@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package demo;
+
+message Money {
+  string currencyCode = 1;
+  int64 units = 2;
+  int32 nanos = 3;
+}
+
+service ProductCatalogService {
+  rpc ListProducts (Empty) returns (ListProductsResponse);
+}
+
+message Empty {}
+
+message ListProductsResponse {
+  repeated Product products = 1;
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  Money priceUsd = 3;
+}

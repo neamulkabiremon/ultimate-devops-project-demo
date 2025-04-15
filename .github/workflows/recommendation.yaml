@@ -24,8 +24,9 @@ jobs:
           cd src/recommendation
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest
 
       - name: Run unit tests
         working-directory: ./src/recommendation
-        run: pytest
+        run: |
+          cd src/recommendation
+          python3 -m unittest discover -s . -p "test_*.py"

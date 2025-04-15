@@ -1,14 +1,20 @@
+import sys
+import os
 import unittest
 from unittest.mock import patch, MagicMock
+
+# Fix import path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
+
+# Import the service and protobufs
+from recommendation_server import RecommendationService
 from demo_pb2 import ListRecommendationsRequest
-from recommendation import RecommendationService
 
 
 class TestRecommendationService(unittest.TestCase):
-    @patch("recommendation.product_catalog_stub")
+    @patch("recommendation_server.product_catalog_stub")
     def test_list_recommendations(self, mock_catalog_stub):
-        # Arrange
-        # Fake product catalog response
+        # Arrange: fake product catalog response
         fake_products = [
             MagicMock(id="prod1"),
             MagicMock(id="prod2"),

@@ -31,7 +31,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: adservice
-          image: neamulkabiremon/checkout:242ec10256d114f6cc301386da5083a52c5c4d23
+          image: neamulkabiremon/checkout:48d62bae25d7ac0297070b63e504c1d6c766821d
           imagePullPolicy: IfNotPresent
           ports:
             

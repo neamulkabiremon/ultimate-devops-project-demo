@@ -35,7 +35,7 @@ jobs:
 
   code-quality:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    continue-on-error: true  # 👈 Add this line to allow failure
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

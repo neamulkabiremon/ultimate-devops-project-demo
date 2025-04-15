@@ -1,0 +1,57 @@
+name: frontend-services-ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    paths:
+      - '.github/workflows/frontend.yaml'
+      - 'src/frontend/**'
+  pull_request_target:
+    branches: [main]
+    paths:
+      - '.github/workflows/frontend.yaml'
+      - 'src/frontend/**'
+
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd src/frontend
+          npm install
+
+      - name: Run unit tests
+        run: |
+          cd src/frontend
+          npm test -- --watchAll=false
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd src/frontend
+          npm install
+
+      - name: Run ESLint (code quality check)
+        run: |
+          cd src/frontend
+          npm run lint -- --max-warnings=0 --quiet

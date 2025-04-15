@@ -30,7 +30,7 @@ jobs:
         run: chmod +x ./src/ad/gradlew
       
       - name: Run unit tests
-        working-directory: .src/ad
+        working-directory: ./src/ad
         run: ./gradlew test
 
      

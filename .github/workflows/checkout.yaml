@@ -99,4 +99,3 @@ jobs:
            git add kubernetes/checkout/deploy.yaml
            git commit -m "[CI]: Update checkout deployment image tag"
            git push
-

@@ -92,3 +92,11 @@ jobs:
           sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/checkout:${{ github.sha }}|" kubernetes/checkout/deploy.yaml
           cat kubernetes/checkout/deploy.yaml
 
+      - name: Commit and push updated Kubernetes manifest
+        run: |
+           git config --global user.email "neamulkabiremon@gmail.com"
+           git config --global user.name "neamulkabiremon"
+           git add kubernetes/checkout/deploy.yaml
+           git commit -m "[CI]: Update checkout deployment image tag"
+           git push
+

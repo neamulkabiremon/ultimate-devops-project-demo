@@ -9,7 +9,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  unit-testing:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -42,15 +42,19 @@ jobs:
         with:
           go-version: 1.22
 
+      - name: Install golangci-lint
+        run: |
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
       - name: Run golangci-lint
         working-directory: ./src/checkout
         run: |
-          go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1
-          golangci-lint run src/checkout/...
+            golangci-lint run ./...
 
   docker:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [unit-testing, code-quality]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

@@ -11,7 +11,7 @@ const Banner = () => {
         <S.BannerImg />
       </S.ImageContainer>
       <S.TextContainer>
-        <S.Title>🚀 Explore Real DevOps in Action – CI/CD, Kubernetes & GitOps</S.Title>
+        <S.Title>The best tools to see DevOps in action, closer than ever</S.Title>
         <Link href="#hot-products"><S.GoShoppingButton>Go Shopping</S.GoShoppingButton></Link>
       </S.TextContainer>
     </S.Banner>

@@ -54,3 +54,28 @@ test/tracetesting/tracetesting-vars.yaml
 *.apk
 
 !src/currency/build
+
+# -----------------------------
+# Terraform
+# -----------------------------
+**/.terraform/                # Terraform plugins and provider binaries
+**/.terraform.lock.hcl        # Dependency lock file (optional: only ignore if not needed)
+**/*.tfstate                  # Terraform state files
+**/*.tfstate.backup           # State backup
+**/*.tfplan                   # Terraform plan files
+**/crash.log                  # Crash logs
+
+# -----------------------------
+# Local Environment
+# -----------------------------
+*.log
+*.bak
+*.swp
+.DS_Store
+
+# -----------------------------
+# VSCode and IDEs
+# -----------------------------
+.vscode/
+.idea/
+*.code-workspace

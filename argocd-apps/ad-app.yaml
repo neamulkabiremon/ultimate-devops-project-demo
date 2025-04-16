@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ad
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/neamulkabiremon/ultimate-devops-project-demo
+    targetRevision: HEAD
+    path: kubernetes/ad
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

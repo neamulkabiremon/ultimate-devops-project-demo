@@ -79,3 +79,11 @@ test/tracetesting/tracetesting-vars.yaml
 .vscode/
 .idea/
 *.code-workspace
+
+**/.terraform/
+
+
+infrastructure/eks-cluster/.terraform/
+infrastructure/eks-cluster/terraform.tfstate
+infrastructure/eks-cluster/terraform.tfstate.backup
+*.tfplan

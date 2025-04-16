@@ -31,7 +31,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: frontend
-          image: neamulkabiremon/frontend:fd4f5cc1a6f69f23438be1acb7ca5744ab2e4851
+          image: neamulkabiremon/frontend:43d8327552e5752a07a5009443cfb24f084f212e
           imagePullPolicy: IfNotPresent
           ports:
             

@@ -5,10 +5,13 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80, "HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:377027906194:certificate/647f2856-e897-4c78-a4c0-45834c3ad14b
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
 spec:
   ingressClassName: alb
   rules:
-    - host: example.com
+    - host: devops.neamulkabiremon.com
       http:
         paths:
           - path: "/"
@@ -18,3 +21,6 @@ spec:
                 name: opentelemetry-demo-frontendproxy
                 port:
                   number: 8080
+  tls:
+    - hosts:
+        - devops.neamulkabiremon.com
